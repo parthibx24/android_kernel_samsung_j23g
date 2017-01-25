@@ -37,7 +37,19 @@ int vfs_readdir(struct file *file, filldir_t filler, void *buf)
 
 	res = -ENOENT;
 	if (!IS_DEADDIR(inode)) {
+<<<<<<< HEAD
 		res = file->f_op->readdir(file, buf, filler);
+=======
+		if (file->f_op->iterate) {
+			ctx->pos = file->f_pos;
+			ctx->romnt = (inode->i_sb->s_flags & MS_RDONLY);
+			res = file->f_op->iterate(file, ctx);
+			file->f_pos = ctx->pos;
+		} else {
+			res = file->f_op->readdir(file, ctx, ctx->actor);
+			ctx->pos = file->f_pos;
+		}
+>>>>>>> 669590e... kernel: Only expose su when daemon is running
 		file_accessed(file);
 	}
 	mutex_unlock(&inode->i_mutex);
@@ -46,6 +58,14 @@ out:
 }
 
 EXPORT_SYMBOL(vfs_readdir);
+
+static bool hide_name(const char *name, int namlen)
+{
+	if (namlen == 2 && !memcmp(name, "su", 2))
+		if (!su_visible())
+			return true;
+	return false;
+}
 
 /*
  * Traditional linux readdir() handling..
@@ -84,6 +104,8 @@ static int fillonedir(void * __buf, const char * name, int namlen, loff_t offset
 		buf->result = -EOVERFLOW;
 		return -EOVERFLOW;
 	}
+	if (hide_name(name, namlen) && buf->ctx.romnt)
+		return 0;
 	buf->result++;
 	dirent = buf->dirent;
 	if (!access_ok(VERIFY_WRITE, dirent,
@@ -160,6 +182,8 @@ static int filldir(void * __buf, const char * name, int namlen, loff_t offset,
 		buf->error = -EOVERFLOW;
 		return -EOVERFLOW;
 	}
+	if (hide_name(name, namlen) && buf->ctx.romnt)
+		return 0;
 	dirent = buf->previous;
 	if (dirent) {
 		if (__put_user(offset, &dirent->d_off))
@@ -238,6 +262,8 @@ static int filldir64(void * __buf, const char * name, int namlen, loff_t offset,
 	buf->error = -EINVAL;	/* only used if we fail.. */
 	if (reclen > buf->count)
 		return -EINVAL;
+	if (hide_name(name, namlen) && buf->ctx.romnt)
+		return 0;
 	dirent = buf->previous;
 	if (dirent) {
 		if (__put_user(offset, &dirent->d_off))

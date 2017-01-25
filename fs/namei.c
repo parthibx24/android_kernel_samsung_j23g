@@ -1983,6 +1983,16 @@ static int path_lookupat(int dfd, const char *name,
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	if (!err) {
+		struct super_block *sb = nd->inode->i_sb;
+		if (sb->s_flags & MS_RDONLY) {
+			if (d_is_su(nd->path.dentry) && !su_visible())
+				err = -ENOENT;
+		}
+	}
+>>>>>>> 669590e... kernel: Only expose su when daemon is running
 
 	if (base)
 		fput(base);
