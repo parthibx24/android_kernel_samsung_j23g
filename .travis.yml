@@ -20,7 +20,7 @@ install: true
 script:
   # compiling commands (main)
   - make cyanogen_j23g_defconfig
-  - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
+  - make -j8
   # this part uploads output to a cloud
   - cd $OFOLDER
   - zip Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip z*
