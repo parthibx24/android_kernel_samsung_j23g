@@ -19,7 +19,7 @@ install: true
 
 script:
   # compiling commands (main)
-  - make cyanogen_j23g_defconfig
+  - make j23g-dt_defconfig
   - make -j8
   # this part uploads output to a cloud
   - cd $OFOLDER
