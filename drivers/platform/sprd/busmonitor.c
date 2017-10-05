@@ -581,13 +581,13 @@ static irqreturn_t __sci_bm_isr(int irq_num, void *dev)
 			__raw_writel(bm_int, (volatile void *)bm_reg);
 			if (bm_callback_set[bm_index].fun)
 				bm_callback_set[bm_index].fun(bm_callback_set[bm_index].data);
-			if(bm_st_info.bm_stack_st == true){
-				BM_ERR("Bus Monitor output stack!\n");
-				dump_stack();
+			if(bm_st_info.bm_panic_st == true){
+				BM_ERR("SERIOUS BUG HERE :: :: NOTICE HERE ::: :: \"Bus Monitor output stack!\"\n");
+				//dump_stack();
 			}
 			if(true == bm_st_info.bm_panic_st){
-				BM_ERR("Bus Monitor enter panic!\n");
-				BUG();
+				BM_ERR("PLEAESE NOTICE : : : ::: Bus Monitor enter panic!\n");
+				//BUG();
 			}
 		}
 	}
