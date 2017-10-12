@@ -37,9 +37,6 @@ int vfs_readdir(struct file *file, filldir_t filler, void *buf)
 
 	res = -ENOENT;
 	if (!IS_DEADDIR(inode)) {
-<<<<<<< HEAD
-		res = file->f_op->readdir(file, buf, filler);
-=======
 		if (file->f_op->iterate) {
 			ctx->pos = file->f_pos;
 			ctx->romnt = (inode->i_sb->s_flags & MS_RDONLY);
@@ -49,7 +46,7 @@ int vfs_readdir(struct file *file, filldir_t filler, void *buf)
 			res = file->f_op->readdir(file, ctx, ctx->actor);
 			ctx->pos = file->f_pos;
 		}
->>>>>>> 669590e... kernel: Only expose su when daemon is running
+
 		file_accessed(file);
 	}
 	mutex_unlock(&inode->i_mutex);

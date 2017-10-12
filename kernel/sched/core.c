@@ -93,11 +93,9 @@
 #include <soc/sprd/sprd_debug.h>
 #endif
 
-<<<<<<< HEAD
 #ifdef CONFIG_SEC_DEBUG_SCHED_LOG
 #include <soc/sprd/sec_debug.h>
 #endif
-=======
 static atomic_t __su_instances;
 
 int su_instances(void)
@@ -131,7 +129,6 @@ void su_exit(void)
 }
 
 ATOMIC_NOTIFIER_HEAD(migration_notifier_head);
->>>>>>> 669590e... kernel: Only expose su when daemon is running
 
 void start_bandwidth_timer(struct hrtimer *period_timer, ktime_t period)
 {

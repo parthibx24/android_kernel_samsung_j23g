@@ -1512,8 +1512,6 @@ int fiemap_check_flags(struct fiemap_extent_info *fieinfo, u32 fs_flags);
  * to have different dirent layouts depending on the binary type.
  */
 typedef int (*filldir_t)(void *, const char *, int, loff_t, u64, unsigned);
-<<<<<<< HEAD
-=======
 struct dir_context {
 	const filldir_t actor;
 	loff_t pos;
@@ -1526,7 +1524,6 @@ static inline bool dir_emit(struct dir_context *ctx,
 {
 	return ctx->actor(ctx, name, namelen, ctx->pos, ino, type) == 0;
 }
->>>>>>> 669590e... kernel: Only expose su when daemon is running
 struct block_device_operations;
 
 /* These macros are for out of kernel modules to test that
