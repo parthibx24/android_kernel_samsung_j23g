@@ -5,7 +5,7 @@ before_install:
   
   # Importent Build-Config
   - export DEVICE=j23g
-  - export TCLINK=https://github.com/remilia15/linaro-6.2
+  - export TCLINK=https://bitbucket.org/UBERTC/arm-eabi-4.9.git
   - export OFOLDER=$PWD/arch/arm/boot
   ##
   - git clone $TCLINK toolchain
