@@ -18,7 +18,6 @@ before_install:
 install: true
 
 script:
-  - export LOCALVERSION=-`echo R3X`
   - export KBUILD_BUILD_USER=Parthib-K24
   - export KBUILD_BUILD_HOST=travis
   # compiling commands (main)
