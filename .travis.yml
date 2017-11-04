@@ -20,7 +20,7 @@ install: true
 script:
   - export LOCALVERSION=-`echo R3X`
   - export KBUILD_BUILD_USER=Parthib-K24
-  - export KBUILD_BUILD_HOST=travis-$(hostname)
+  - export KBUILD_BUILD_HOST=travis
   # compiling commands (main)
   - make j23g-dt_defconfig
   - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
