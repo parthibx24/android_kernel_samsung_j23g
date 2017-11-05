@@ -549,13 +549,12 @@ user_exception_exit:
 	 *	 (if we have restored WSBITS-1 frames).
 	 */
 
-2:
 #if XCHAL_HAVE_THREADPTR
 	l32i	a3, a1, PT_THREADPTR
 	wur	a3, threadptr
 #endif
 
-	j	common_exception_exit
+2:	j	common_exception_exit
 
 	/* This is the kernel exception exit.
 	 * We avoided to do a MOVSP when we entered the exception, but we
