@@ -25,8 +25,9 @@ script:
   - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
   # this part uploads output to a cloud
   - cd $OFOLDER
-  - zip Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip z*
-  - echo "Uploading Output" && curl --upload-file Kernel* https://transfer.sh
+  - mv zImage tools/zImage
+  - zip -r R3X-Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip zE* META* tools
+  - echo "Uploading Output" && curl --upload-file R3X-Kernel* https://transfer.sh
 
 deploy:
   provider: releases
