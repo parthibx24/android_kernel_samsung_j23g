@@ -5,7 +5,7 @@ before_install:
   
   # Importent Build-Config
   - export DEVICE=j23g
-  - export TCLINK=https://bitbucket.org/UBERTC/arm-eabi-4.9.git
+  - export TCLINK=https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8
   - export OFOLDER=$PWD/arch/arm/boot
   ##
   - git clone $TCLINK toolchain
@@ -18,9 +18,17 @@ before_install:
 install: true
 
 script:
+<<<<<<< HEAD
   # compiling commands (main)
   - make j23g-dt_defconfig
   - make -j8
+=======
+  - export KBUILD_BUILD_USER=Parthib-K24
+  - export KBUILD_BUILD_HOST=travis
+  # compiling commands (main)
+  - make j23g-dt_defconfig
+  - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
+>>>>>>> 47354cc878a84176c052dd75f0ab1033bcdadf64
   # this part uploads output to a cloud
   - cd $OFOLDER
   - zip Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip z*
@@ -32,4 +40,8 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+<<<<<<< HEAD
 all_branches: true
+=======
+    all_branches: true
+>>>>>>> 47354cc878a84176c052dd75f0ab1033bcdadf64

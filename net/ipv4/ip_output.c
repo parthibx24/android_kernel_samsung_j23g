@@ -847,7 +847,8 @@ static int __ip_append_data(struct sock *sk,
 	cork->length += length;
 	if (((length > mtu) || (skb && skb_has_frags(skb))) &&
 	    (sk->sk_protocol == IPPROTO_UDP) &&
-	    (rt->dst.dev->features & NETIF_F_UFO) && !rt->dst.header_len) {
+	    (rt->dst.dev->features & NETIF_F_UFO) && !rt->dst.header_len &&
+	    (sk->sk_type == SOCK_DGRAM)) {
 		err = ip_ufo_append_data(sk, queue, getfrag, from, length,
 					 hh_len, fragheaderlen, transhdrlen,
 					 maxfraglen, flags);
@@ -1467,6 +1468,7 @@ static DEFINE_PER_CPU(struct inet_sock, unicast_sock) = {
 		.sk_wmem_alloc	= ATOMIC_INIT(1),
 		.sk_allocation	= GFP_ATOMIC,
 		.sk_flags	= (1UL << SOCK_USE_WRITE_QUEUE),
+		.sk_pacing_rate = ~0U,
 	},
 	.pmtudisc	= IP_PMTUDISC_WANT,
 	.uc_ttl		= -1,
