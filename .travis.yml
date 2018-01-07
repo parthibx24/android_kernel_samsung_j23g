@@ -18,17 +18,11 @@ before_install:
 install: true
 
 script:
-<<<<<<< HEAD
-  # compiling commands (main)
-  - make j23g-dt_defconfig
-  - make -j8
-=======
   - export KBUILD_BUILD_USER=Parthib-K24
   - export KBUILD_BUILD_HOST=travis
   # compiling commands (main)
   - make j23g-dt_defconfig
   - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
->>>>>>> 47354cc878a84176c052dd75f0ab1033bcdadf64
   # this part uploads output to a cloud
   - cd $OFOLDER
   - zip Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip z*
@@ -40,8 +34,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-<<<<<<< HEAD
 all_branches: true
-=======
-    all_branches: true
->>>>>>> 47354cc878a84176c052dd75f0ab1033bcdadf64
