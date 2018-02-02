@@ -58,4 +58,4 @@ for dts_file in ${dts_array[@]}; do
 	fi
 done
 
-$TOOL_DTBTOOL -o $dtimg $(pwd)/arch/arm/boot/dts/ -p $TOOL_DTC_FOLDER/
+./scripts/dtbTool -o $dtimg $(pwd)/arch/arm/boot/dts/ -p $TOOL_DTC_FOLDER/
