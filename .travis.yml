@@ -23,9 +23,13 @@ script:
   # compiling commands (main)
   - make j23g-dt_defconfig
   - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
+  # build dtb
+  - chmod +x scripts/dtbTool
+  - chmod +x ./scripts/mkdtimg.sh
+  - ./scripts/mkdtimg.sh -i ./arch/arm/boot/dts/ -o $OFOLDER/dt.img;
   # this part uploads output to a cloud
   - cd $OFOLDER
-  - zip Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip z*
+  - zip Kernel_$DEVICE-$(date +%b-%d-%Y-%H:%M).zip z* dt.img
   - echo "Uploading Output" && curl --upload-file Kernel* https://transfer.sh
 
 deploy:
