@@ -25,7 +25,8 @@ script:
   - make 2>> $OFOLDER/zEWlog_$(date +%b-%d-%Y-%H:%M).txt
   # build dtb
   - chmod +x scripts/dtbTool
-  - chmod +x ./scripts/mkdtimg.sh
+  - chmod +x scripts/mkdtimg.sh
+  - cd scripts/; ls; cd..;
   - ./scripts/mkdtimg.sh -i ./arch/arm/boot/dts/ -o $OFOLDER/dt.img;
   # this part uploads output to a cloud
   - cd $OFOLDER
