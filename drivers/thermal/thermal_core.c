@@ -1120,16 +1120,16 @@ thermal_remove_hwmon_sysfs(struct thermal_zone_device *tz)
 	kfree(hwmon);
 }
 #else
-static int
-thermal_add_hwmon_sysfs(struct thermal_zone_device *tz)
-{
-	return 0;
-}
+// static int
+// thermal_add_hwmon_sysfs(struct thermal_zone_device *tz)
+// {
+// 	return 0;
+// }
 
-static void
-thermal_remove_hwmon_sysfs(struct thermal_zone_device *tz)
-{
-}
+// static void
+// thermal_remove_hwmon_sysfs(struct thermal_zone_device *tz)
+// {
+// }
 #endif
 
 /**
